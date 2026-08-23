@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Парасолька «Три Слона» — чоловіча класична з дерев'яною ручкою</title>
+    <!-- Захист від копіювання -->
+    <script>
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+        document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; line-height: 1.6; padding-bottom: 90px; scroll-behavior: smooth; }
+        .container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; }
+
+        /* ===== HERO ===== */
+        .top-header { background: #1e2a38; color: #fff; padding: 22px 16px 20px; text-align: center; }
+        .brand-title { font-size: 22px; font-weight: 800; letter-spacing: 0.3px; margin-bottom: 6px; }
+        .brand-subtitle { font-size: 13px; color: #aab4bd; margin-bottom: 16px; line-height: 1.4; }
+        .header-price-box { background: #ffffff; border-radius: 8px; padding: 15px 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .header-prices-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 12px; }
+        .header-old-price { font-size: 18px; color: #95a5a6; text-decoration: line-through; }
+        .header-new-price { font-size: 22px; font-weight: bold; color: #e44d26; }
+        .header-savings-info { font-size: 12px; color: #fff; font-weight: bold; text-align: center; background: #d9534f; padding: 10px; border-radius: 6px; text-transform: uppercase; margin-bottom: 8px; line-height: 1.4; }
+        .header-promo-note { font-size: 11px; color: #c0392b; font-style: italic; text-align: center; line-height: 1.3; }
+
+        /* ===== PRODUCT BLOCK ===== */
+        .product-block { border-top: 10px solid #f4f6f9; scroll-margin-top: 10px; }
+        .product-header { padding: 22px 18px; text-align: center; background: #eef1f4; border-top: 4px solid #1e2a38; border-bottom: 1px solid #dde3e8; }
+        .product-kicker { display: inline-block; background: #1e2a38; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; }
+        .product-title { font-size: 16px; font-weight: 700; color: #222; line-height: 1.35; margin-bottom: 10px; }
+        .product-price-line { display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .old-price-inline { font-size: 15px; color: #95a5a6; text-decoration: line-through; }
+        .new-price-inline { font-size: 20px; font-weight: bold; color: #e44d26; }
+
+        .order-section { padding: 12px 12px 15px; background: #fff; }
+        .colors-label { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 8px; }
+        .colors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+        .color-card { border: 2px solid #ddd; border-radius: 8px; padding: 6px; text-align: center; cursor: pointer; background: #fff; transition: all 0.2s; }
+        .color-card img { width: 100%; height: 100px; object-fit: contain; border-radius: 4px; margin-bottom: 4px; background: #fafafa; }
+        .color-name { font-size: 11px; font-weight: 600; color: #444; }
+        .color-card.selected { border-color: #e74c3c; background-color: #fdfefe; box-shadow: 0 0 8px rgba(231, 76, 60, 0.3); }
+
+        .man-color-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
+        .man-color-card { border: 2px solid #ddd; border-radius: 10px; padding: 12px; text-align: center; width: 100%; max-width: 220px; background: #fdfefe; cursor: pointer; transition: all .2s; position: relative; }
+        .man-color-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; }
+        .man-color-card.selected { border: 3px solid #e53935; box-shadow: 0 4px 15px rgba(229,57,53,.25); background: #fff5f5; }
+        .man-color-card.selected::after { content:'✔'; position:absolute; top:8px; right:8px; background:#e53935; color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; }
+
+        .quantity-wrapper { display: flex; align-items: center; justify-content: space-between; background: #f9f9f9; padding: 12px 15px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 12px; }
+        .quantity-label { font-size: 14px; font-weight: 600; color: #444; }
+        .quantity-select { display: flex; align-items: center; gap: 5px; }
+        .quantity-btn { background: #1e2a38; color: #fff; border: none; width: 34px; height: 34px; border-radius: 6px; font-size: 17px; font-weight: bold; cursor: pointer; }
+        .quantity-input { width: 40px; height: 34px; text-align: center; font-size: 15px; font-weight: bold; border: 1px solid #ddd; border-radius: 6px; background: #fff; }
+
+        .selected-line { font-size: 12.5px; color: #6b7280; margin-bottom: 4px; min-height: 16px; }
+        .popularity-box { background: #fff6f0; border: 1px dashed #e74c3c; border-radius: 8px; padding: 9px 12px; margin-bottom: 4px; }
+        .popularity-row { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: #333; padding: 3px 0; }
+        .popularity-row b { color: #c0392b; }
+        .popularity-icon { font-size: 14px; flex-shrink: 0; }
+        .buy-now-btn { width: 100%; background: #e74c3c; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
+        .buy-now-btn:hover { background: #c0392b; }
+
+        /* ===== MEDIA / GALLERY ===== */
+        .media-section { padding: 16px 12px; background: #fff; }
+        .media-section-title { font-size: 15px; font-weight: bold; color: #1e2a38; text-transform: uppercase; margin-bottom: 12px; text-align: center; }
+        .gallery-container { position: relative; width: 100%; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #fff; margin-bottom: 15px; }
+        .gallery-slide { display: none; width: 100%; height: 280px; text-align: center; }
+        .gallery-slide.active { display: block; }
+        .gallery-slide img { width: 100%; height: 100%; object-fit: contain; }
+        .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(30,42,56,.75); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .gallery-arrow:hover { background: rgba(30,42,56,1); }
+        .gallery-prev { left: 8px; }
+        .gallery-next { right: 8px; }
+
+        .video-container { width: 100%; max-width: 440px; height: 340px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .video-container video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+
+        /* ===== FEATURES ===== */
+        .features-section { padding: 18px 15px 22px; background: #fff; }
+        .feature-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 13px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; background: #fff; }
+        .feature-card:last-child { margin-bottom: 0; }
+        .feature-icon { font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+        .feature-content h4 { font-size: 13.5px; font-weight: 700; color: #111827; margin-bottom: 4px; line-height: 1.3; }
+        .feature-content p { font-size: 12px; color: #6b7280; line-height: 1.5; }
+
+        /* ===== SPECS TABLE ===== */
+        .specs-section { padding: 20px 15px 24px; background: #eef1f4; }
+        .specs-title { font-size: 16px; font-weight: bold; color: #1e2a38; text-transform: uppercase; text-align: center; margin-bottom: 14px; }
+        .specs-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .specs-table tr:nth-child(even) { background: #f7f9fa; }
+        .specs-table td { padding: 10px 14px; font-size: 12.5px; border-bottom: 1px solid #eef1f4; }
+        .specs-table tr:last-child td { border-bottom: none; }
+        .specs-table td:first-child { color: #6b7280; width: 46%; }
+        .specs-table td:last-child { color: #1e2a38; font-weight: 600; }
+
+        /* ===== REVIEWS CAROUSEL ===== */
+        .reviews-section { padding: 22px 0 26px; background: #fff; border-top: 8px solid #eef1f4; }
+        .reviews-title { font-size: 16px; font-weight: bold; color: #1e2a38; text-transform: uppercase; text-align: center; margin-bottom: 14px; padding: 0 15px; }
+        .reviews-carousel { position: relative; padding: 0 15px; }
+        .review-card { display: none; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 44px; background: #fdfdfd; box-shadow: 0 2px 8px rgba(0,0,0,0.04); min-height: 150px; }
+        .review-card.active { display: block; }
+        .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .review-avatar { width: 36px; height: 36px; border-radius: 50%; background: #1e2a38; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; }
+        .review-name { font-size: 13.5px; font-weight: 700; color: #222; }
+        .review-stars { font-size: 12px; color: #f39c12; letter-spacing: 1px; }
+        .review-text { font-size: 12.5px; color: #444; line-height: 1.5; margin-bottom: 8px; }
+        .review-date { font-size: 11px; color: #9ca3af; }
+        .reviews-carousel .gallery-arrow { top: 50%; }
+        .reviews-carousel .reviews-prev { left: 0; }
+        .reviews-carousel .reviews-next { right: 0; }
+        .reviews-dots { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
+        .review-dot { width: 7px; height: 7px; border-radius: 50%; background: #dde3e8; cursor: pointer; transition: background .2s; }
+        .review-dot.active { background: #1e2a38; }
+
+        /* ===== ORDER FORM (единая форма) ===== */
+        .order-form-section { padding: 26px 16px 30px; background: #eef1f4; border-top: 1px solid #dde3e8; border-bottom: 1px solid #dde3e8; scroll-margin-top: 10px; }
+        .order-form-title { font-size: 19px; font-weight: bold; color: #1e2a38; text-transform: uppercase; text-align: center; margin-bottom: 6px; }
+        .order-form-desc { font-size: 13px; color: #555; text-align: center; margin-bottom: 16px; line-height: 1.4; }
+        .order-summary { background: #fff; border: 1px dashed #b993c9; border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; }
+        .empty-summary { font-size: 13px; color: #888; text-align: center; }
+        .order-summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .order-summary-heading { font-size: 12.5px; font-weight: 700; color: #1e2a38; text-transform: uppercase; letter-spacing: 0.3px; }
+        .clear-all-btn { background: none; border: none; color: #e74c3c; font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 0; }
+        .summary-item { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #333; padding: 6px 0; border-bottom: 1px solid #e3e7ea; gap: 8px; }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-item-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .summary-item-badge { background: #e8f8f0; color: #27ae60; border: 1px solid #27ae60; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
+        .summary-item-remove { background: #f5f5f5; border: 1px solid #ddd; color: #888; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .summary-item-remove:hover { background: #e74c3c; color: #fff; border-color: #e74c3c; }
+        .order-summary-old-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12.5px; color: #95a5a6; }
+        .order-summary-old-row span:last-child { text-decoration: line-through; }
+        .order-summary-discount-banner { margin-top: 8px; background: #e8f8f0; border: 1px dashed #27ae60; color: #1e8449; font-size: 12px; font-weight: 700; text-align: center; padding: 7px; border-radius: 6px; }
+        .order-summary-total-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 2px solid #1e2a38; font-size: 15px; font-weight: bold; color: #1e2a38; }
+        .order-summary-total-row span:last-child { color: #e44d26; font-size: 19px; }
+        .order-form { display: flex; flex-direction: column; gap: 12px; }
+        .order-input { width: 100%; padding: 14px; border: 1px solid #d2b4de; border-radius: 8px; font-size: 14px; background: #fff; outline: none; }
+        .order-input:focus { border-color: #1e2a38; }
+        .order-submit-btn { background: #e74c3c; color: #fff; border: none; padding: 15px; border-radius: 8px; font-size: 15px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+        .order-submit-btn:hover { background: #c0392b; }
+        /* ===== DELIVERY / FOOTER ===== */
+        .delivery-info-section { padding: 22px 15px; background: #fff; }
+        .delivery-info-title { font-size: 17px; font-weight: bold; color: #1e2a38; text-transform: uppercase; margin-bottom: 15px; text-align: center; }
+        .delivery-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; }
+        .delivery-row-icon { font-size: 18px; line-height: 1; width: 40px; height: 40px; border-radius: 50%; background: #1e2a38; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .delivery-row-text h4 { font-size: 14.5px; font-weight: bold; color: #222; margin-bottom: 2px; }
+        .delivery-row-text p { font-size: 13px; color: #666; }
+        .footer-links { margin-top: 20px; padding-top: 12px; border-top: 1px solid #eee; font-size: 12px; display: flex; flex-direction: column; gap: 8px; text-align: center; }
+        .footer-links a { color: #1a0dab; text-decoration: underline; }
+
+        /* ===== STICKY BOTTOM BAR ===== */
+        .floating-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #ffffff; border-top: 1px solid #ddd; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); z-index: 999; }
+        .floating-promo { font-size: 12.5px; font-weight: bold; color: #1e2a38; line-height: 1.3; }
+        .floating-promo b { color: #e44d26; font-size: 15px; }
+        .floating-order-btn { background: #e67e22; color: #fff; border: none; padding: 11px 18px; border-radius: 8px; font-weight: bold; font-size: 13.5px; cursor: pointer; text-transform: uppercase; white-space: nowrap; }
+        .floating-order-btn:hover { background: #d35400; }
+
+        /* ===== ALERT MODAL ===== */
+        .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 99999; padding: 15px; }
+        .custom-alert-box { background: #fff; width: 100%; max-width: 340px; border-radius: 12px; padding: 25px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .alert-icon-wrap { font-size: 42px; margin-bottom: 8px; }
+        .alert-title { font-size: 17px; font-weight: bold; color: #e74c3c; text-transform: uppercase; margin-bottom: 10px; }
+        .alert-message { font-size: 14px; color: #555; margin-bottom: 18px; line-height: 1.4; }
+        .alert-btn { background: #e74c3c; color: #fff; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+
+        .success-icon-wrap { font-size: 46px; margin-bottom: 10px; }
+        .success-title { font-size: 18px; font-weight: bold; color: #27ae60; text-transform: uppercase; margin-bottom: 10px; }
+        .success-message { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5; }
+        .success-btn { background: #27ae60; color: #fff; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+        .success-btn:hover { background: #1e8449; }
+    </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1015453331530328');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HERO ===== -->
+    <div class="top-header">
+        <div class="brand-title">Парасолька «Три Слона»</div>
+        <div class="brand-subtitle">Чоловіча парасолька-автомат із посиленим каркасом</div>
+        <div class="header-price-box">
+            <div class="header-prices-row">
+                <span class="header-old-price">1049 грн</span>
+                <span class="header-new-price">849 грн</span>
+            </div>
+            <div class="header-savings-info">
+                🎁 НА КОЖНУ ДРУГУ ТА ТРЕТЮ ПАРАСОЛЮ В ЧЕКУ — ЗНИЖКА -20%
+            </div>
+            <div class="header-promo-note">
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PRODUCT 3: ЧОЛОВІЧА КЛАСИЧНА -->
+    <!-- ============================================================ -->
+    <section class="product-block" id="prod-man">
+        <div class="product-header">
+            <span class="product-kicker">Чоловіча модель</span>
+            <h2 class="product-title">Класична модель, 16 міцних спиць, дерев'яна ручка</h2>
+            <div class="product-price-line">
+                <span class="old-price-inline">1049 грн</span>
+                <span class="new-price-inline">849 грн</span>
+            </div>
+        </div>
+
+        <div class="order-section">
+            <div class="colors-label">Колір: <span id="manColorLabel">Чорний</span></div>
+            <div class="man-color-wrap">
+                <div class="man-color-card" id="manColorCard" onclick="toggleManColor()">
+                    <img src="zont_m.png" alt="Чорний">
+                    <div class="color-name">Чорний</div>
+                </div>
+            </div>
+            <div class="quantity-wrapper">
+                <span class="quantity-label">Кількість:</span>
+                <div class="quantity-select">
+                    <button type="button" class="quantity-btn" onclick="changeManQty(-1)">-</button>
+                    <input type="text" id="manQty" class="quantity-input" value="0" readonly>
+                    <button type="button" class="quantity-btn" onclick="changeManQty(1)">+</button>
+                </div>
+            </div>
+            <div class="selected-line" id="selected-man">Товар ще не обрано</div>
+            <button type="button" class="buy-now-btn" onclick="scrollToOrder()">Купити</button>
+        </div>
+
+        <div class="media-section">
+            <div class="media-section-title">Живі фото та огляд</div>
+            <div class="gallery-container" id="gallery-man">
+                <button class="gallery-arrow gallery-prev" onclick="changeSlide('man', -1)">&#10094;</button>
+                <div class="gallery-slide active"><img src="m_5.jpg" alt="Фото 1"></div>
+                <div class="gallery-slide"><img src="m_3.jpg" alt="Фото 2"></div>
+				<div class="gallery-slide"><img src="zont_m1.png" alt="Фото 3"></div>
+                <div class="gallery-slide"><img src="zont _m2.png" alt="Фото 4"></div>
+                <div class="gallery-slide"><img src="zont_m4.png" alt="Фото 5"></div>
+                <div class="gallery-slide"><img src="zont_m5.png" alt="Фото 6"></div>
+                <div class="gallery-slide"><img src="zont_m6.png" alt="Фото 7"></div>
+                <button class="gallery-arrow gallery-next" onclick="changeSlide('man', 1)">&#10095;</button>
+            </div>
+            <div class="video-container">
+                <video id="manVideo" controls preload="auto" autoplay muted loop playsinline>
+                    <source src="men.mp4" type="video/mp4">
+                    Ваш браузер не підтримує відео.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ХАРАКТЕРИСТИКИ -->
+    <!-- ============================================================ -->
+    <section class="specs-section">
+        <div class="specs-title">Характеристики</div>
+        <table class="specs-table">
+            <tr><td>Тип механізму</td><td>Автомат (відкривання однією кнопкою)</td></tr>
+            <tr><td>Кількість спиць</td><td>16 шт (сталь + файберглас)</td></tr>
+            <tr><td>Матеріал купола</td><td>Тканина понжі (епонж)</td></tr>
+            <tr><td>Захист від УФ</td><td>15 UPF</td></tr>
+            <tr><td>Діаметр купола</td><td>106 см</td></tr>
+            <tr><td>Довжина у складеному вигляді</td><td>36 см</td></tr>
+            <tr><td>Вага</td><td>678 г</td></tr>
+            <tr><td>Матеріал ручки</td><td>Дерево, форма гака</td></tr>
+            <tr><td>Колір</td><td>Чорний</td></tr>
+            <tr><td>Комплектація</td><td>Парасолька + фірмовий чохол</td></tr>
+        </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ВІДГУКИ -->
+    <!-- ============================================================ -->
+    <section class="reviews-section">
+        <div class="reviews-title">Відгуки покупців</div>
+        <div class="reviews-carousel" id="reviews-carousel">
+            <button class="gallery-arrow reviews-prev" onclick="changeReview(-1)">&#10094;</button>
+
+            <div class="review-card active">
+                <div class="review-head">
+                    <div class="review-avatar">О</div>
+                    <div class="review-head-text">
+                        <div class="review-name">Олександр К.</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="review-text">Тримає купол чудово, перевірив у сильний вітер по дорозі на роботу — жодного разу не вивернуло. Ручка зручна, солідна, не соромно з такою ходити.</p>
+                <div class="review-date">12 серпня 2026</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-head">
+                    <div class="review-avatar">М</div>
+                    <div class="review-head-text">
+                        <div class="review-name">Марина П.</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="review-text">Замовляла на подарунок батьку — приїхало швидко, якість відповідає ціні, механізм спрацьовує чітко з першого натискання. Батько задоволений, дякую.</p>
+                <div class="review-date">5 серпня 2026</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-head">
+                    <div class="review-avatar">Д</div>
+                    <div class="review-head-text">
+                        <div class="review-name">Дмитро В.</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="review-text">Купол щільний, вода одразу скочується, руки залишаються сухими. За такі гроші не очікував настільки якісної тканини та надійного каркасу.</p>
+                <div class="review-date">28 липня 2026</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-head">
+                    <div class="review-avatar">І</div>
+                    <div class="review-head-text">
+                        <div class="review-name">Ігор С.</div>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                </div>
+                <p class="review-text">Користуюсь вже місяць, все влаштовує: міцна конструкція, не важка, тримається впевнено навіть у поривчастий вітер. Рекомендую тим, хто шукає надійну парасольку.</p>
+                <div class="review-date">19 липня 2026</div>
+            </div>
+
+            <button class="gallery-arrow reviews-next" onclick="changeReview(1)">&#10095;</button>
+        </div>
+        <div class="reviews-dots" id="reviews-dots">
+            <span class="review-dot active" onclick="goToReview(0)"></span>
+            <span class="review-dot" onclick="goToReview(1)"></span>
+            <span class="review-dot" onclick="goToReview(2)"></span>
+            <span class="review-dot" onclick="goToReview(3)"></span>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ЄДИНА ФОРМА ЗАМОВЛЕННЯ -->
+    <!-- ============================================================ -->
+    <section class="order-form-section" id="orderForm">
+        <div class="order-form-title">Оформити замовлення</div>
+        <div class="order-form-desc">Перевірте обраний набір нижче, залиште ім'я та номер телефону — наш менеджер зателефонує для підтвердження, оплата тільки при отриманні.</div>
+
+        <div class="order-summary">
+            <div class="order-summary-header">
+                <span class="order-summary-heading">Ваш вибір</span>
+                <button type="button" class="clear-all-btn" id="clearAllBtn" onclick="resetAllSelections()" style="display:none;">Очистити все ✕</button>
+            </div>
+            <div id="orderSummaryList">
+                <p class="empty-summary">Ви ще нічого не обрали вище 👆</p>
+            </div>
+            <div class="order-summary-total-row">
+                <span>Разом (<span id="orderSummaryCount">0</span> шт):</span>
+                <span id="orderSummaryTotal">0 грн</span>
+            </div>
+        </div>
+
+        <form class="order-form" id="orderFormEl" onsubmit="submitOrder(event)">
+            <input type="text" id="orderName" class="order-input" placeholder="Ваше ім'я" required>
+            <input type="tel" id="orderPhone" class="order-input" placeholder="Номер телефону (+380...)" required>
+            <button type="submit" class="order-submit-btn">Замовити</button>
+        </form>
+
+    </section>
+
+    <!-- ===== ДОСТАВКА ТА ОПЛАТА ===== -->
+    <div class="delivery-info-section">
+        <div class="delivery-info-title">Доставка та оплата</div>
+        <div class="delivery-row">
+            <div class="delivery-row-icon">📦</div>
+            <div class="delivery-row-text">
+                <h4>Швидка доставка</h4>
+                <p>Новою Поштою та Укрпоштою 1–3 дні по всій Україні.</p>
+            </div>
+        </div>
+        <div class="delivery-row">
+            <div class="delivery-row-icon">💵</div>
+            <div class="delivery-row-text">
+                <h4>Оплата при отриманні</h4>
+                <p>Без жодних передоплат. Оплачуйте посилку тільки після особистого огляду на пошті.</p>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="politics.html">Політика конфіденційності</a>
+            <a href="ugoda.html">Угода користувача</a>
+            <a href="vozvrat.html">Умови гарантії та повернення</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== STICKY BOTTOM BAR ===== -->
+<div class="floating-bottom-bar">
+    <div class="floating-promo">Обрано: <b id="stickyCount">0</b> шт · <b id="stickyTotal">0 грн</b></div>
+    <button type="button" class="floating-order-btn" onclick="scrollToOrder()">Оформити</button>
+</div>
+
+<!-- ===== ALERT: ПОРОЖНЄ ЗАМОВЛЕННЯ ===== -->
+<div class="custom-alert-overlay" id="emptyOrderAlert">
+    <div class="custom-alert-box">
+        <div class="alert-icon-wrap">⚠️</div>
+        <div class="alert-title">Оберіть товар!</div>
+        <div class="alert-message">Будь ласка, оберіть хоча б одну парасольку вище, перш ніж оформити замовлення.</div>
+        <button type="button" class="alert-btn" onclick="closeEmptyOrderAlert()">Обрати товар</button>
+    </div>
+</div>
+
+<!-- ===== POPUP: ЗАМОВЛЕННЯ ПРИЙНЯТО ===== -->
+<div class="custom-alert-overlay" id="orderSuccessModal">
+    <div class="custom-alert-box">
+        <div class="success-icon-wrap">✅</div>
+        <div class="success-title">Дякуємо!</div>
+        <div class="success-message">Ваше замовлення прийнято.<br>Менеджер зв'яжеться з вами найближчим часом для уточнення деталей.</div>
+        <button type="button" class="success-btn" onclick="closeOrderSuccessModal()">Добре</button>
+    </div>
+</div>
+
+<script>
+    const BASE_PRICE = 849;
+    const state = { manQty: 0 };
+    const galleryIndex = { man: 0 };
+
+    function toggleManColor() {
+        // клік по картці чоловічої парасолі просто збільшує кількість, якщо вона ще 0
+        if (state.manQty === 0) {
+            changeManQty(1);
+        }
+    }
+
+    function changeManQty(delta) {
+        state.manQty = Math.max(0, state.manQty + delta);
+        document.getElementById('manQty').value = state.manQty;
+        const card = document.getElementById('manColorCard');
+        if (state.manQty > 0) { card.classList.add('selected'); } else { card.classList.remove('selected'); }
+        updateSelectedLine('man');
+        updateSummary();
+    }
+
+    function updateSelectedLine(productKey) {
+        const el = document.getElementById('selected-' + productKey);
+        el.textContent = state.manQty > 0 ? `Обрано: Чорний × ${state.manQty}` : 'Товар ще не обрано';
+    }
+
+    function buildOrderItems() {
+        const items = [];
+        for (let i = 0; i < state.manQty; i++) items.push({ p: 'Чоловіча класична', c: 'Чорний', key: 'man' });
+        return items;
+    }
+
+    function removeSummaryItem(productKey, colorName) {
+        changeManQty(-1);
+    }
+
+    function resetAllSelections() {
+        state.manQty = 0;
+        document.getElementById('manColorCard').classList.remove('selected');
+        document.getElementById('manQty').value = 0;
+        updateSelectedLine('man');
+        updateSummary();
+    }
+
+    function calcTotal(count) {
+        if (count <= 0) return 0;
+        if (count === 1) return BASE_PRICE;
+        return Math.round(BASE_PRICE + (count - 1) * (BASE_PRICE * 0.8));
+    }
+
+    function updateSummary() {
+        const items = buildOrderItems();
+        const count = items.length;
+        const total = calcTotal(count);
+        const simpleSum = count * BASE_PRICE;
+        const hasDiscount = count > 1;
+
+        document.getElementById('stickyCount').textContent = count;
+        document.getElementById('stickyTotal').textContent = total + ' грн' + (hasDiscount ? ' (-20%)' : '');
+
+        const listEl = document.getElementById('orderSummaryList');
+        listEl.innerHTML = count === 0
+            ? '<p class="empty-summary">Ви ще нічого не обрали вище 👆</p>'
+            : items.map((it, idx) => `<div class="summary-item"><span>${it.p} — ${it.c}</span><div class="summary-item-right">${idx > 0 ? '<span class="summary-item-badge">-20%</span>' : ''}<button type="button" class="summary-item-remove" onclick="removeSummaryItem('${it.key}', '${it.c.replace(/'/g, "\\'")}')" aria-label="Видалити">✕</button></div></div>`).join('')
+              + (hasDiscount ? `<div class="order-summary-old-row"><span>Звичайна ціна за ${count} шт:</span><span>${simpleSum} грн</span></div>` : '')
+              + (hasDiscount ? `<div class="order-summary-discount-banner">🔥 Знижка -20% застосована на ${count - 1} ${count - 1 === 1 ? 'зонт' : 'зонти'} — економія ${simpleSum - total} грн</div>` : '');
+
+        document.getElementById('clearAllBtn').style.display = count > 0 ? 'inline' : 'none';
+        document.getElementById('orderSummaryCount').textContent = count;
+        document.getElementById('orderSummaryTotal').textContent = total + ' грн';
+
+        window.__currentOrder = { items, total };
+    }
+
+    function changeSlide(productKey, direction) {
+        const slides = document.querySelectorAll('#gallery-' + productKey + ' .gallery-slide');
+        slides[galleryIndex[productKey]].classList.remove('active');
+        let idx = galleryIndex[productKey] + direction;
+        if (idx >= slides.length) idx = 0;
+        if (idx < 0) idx = slides.length - 1;
+        galleryIndex[productKey] = idx;
+        slides[idx].classList.add('active');
+    }
+
+    let reviewIndex = 0;
+    function updateReviewView() {
+        const cards = document.querySelectorAll('#reviews-carousel .review-card');
+        const dots = document.querySelectorAll('#reviews-dots .review-dot');
+        cards.forEach((c, i) => c.classList.toggle('active', i === reviewIndex));
+        dots.forEach((d, i) => d.classList.toggle('active', i === reviewIndex));
+    }
+    function changeReview(direction) {
+        const cards = document.querySelectorAll('#reviews-carousel .review-card');
+        reviewIndex = (reviewIndex + direction + cards.length) % cards.length;
+        updateReviewView();
+    }
+    function goToReview(i) {
+        reviewIndex = i;
+        updateReviewView();
+    }
+
+    function scrollToOrder() {
+        const items = buildOrderItems();
+
+        if (items.length === 0) {
+            document.getElementById('emptyOrderAlert').style.display = 'flex';
+            return;
+        }
+
+        document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeEmptyOrderAlert() {
+        document.getElementById('emptyOrderAlert').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let isSubmitting = false;
+
+    async function submitOrder(event) {
+        event.preventDefault();
+
+        // Захист від повторного натискання кнопки та дублювання замовлень
+        if (isSubmitting) return;
+
+        const order = window.__currentOrder || buildOrderItems();
+        const items = order.items || buildOrderItems();
+        const total = order.total !== undefined ? order.total : calcTotal(items.length);
+
+        if (items.length === 0) {
+            document.getElementById('emptyOrderAlert').style.display = 'flex';
+            return;
+        }
+
+        const name = document.getElementById('orderName').value.trim();
+        const phone = document.getElementById('orderPhone').value.trim();
+        if (!name || !phone) return;
+
+        isSubmitting = true;
+        const submitBtn = document.querySelector('#orderFormEl .order-submit-btn');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Відправляємо...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'wait';
+        }
+
+        if (typeof fbq === 'function') {
+            fbq('track', 'Lead', { value: total, currency: 'UAH', content_name: 'Landing_Man' });
+        }
+
+        const itemsText = items.map(it => `• ${it.p} — ${it.c}`).join('\n');
+
+        // Показуємо підтвердження одразу — користувачу не потрібно чекати
+        // поки відпрацює фоновий запит до Telegram
+        document.getElementById('orderFormEl').reset();
+        if (submitBtn) {
+            submitBtn.textContent = 'Замовлення прийнято';
+        }
+        document.getElementById('orderSuccessModal').style.display = 'flex';
+
+        // Telegram Bot (фоново, не блокує інтерфейс)
+        const TOKEN = '8344912935:AAHYjBjVMXCO6eETrKx4uLa9r107tT25Yi4';
+        const CHAT_ID = '607128150';
+        const message = `🛍️ Нове замовлення з чоловічого лендингу!\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n\n${itemsText}\n\n💰 Сума: ${total} грн`;
+
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+        }).catch(function (error) { console.error('Помилка Telegram:', error); });
+    }
+
+    function closeOrderSuccessModal() {
+        document.getElementById('orderSuccessModal').style.display = 'none';
+        resetAllSelections();
+
+        // Повертаємо кнопку у вихідний стан, інакше форма "зависає"
+        // і наступне замовлення на цій же сторінці оформити не вдасться
+        const submitBtn = document.querySelector('#orderFormEl .order-submit-btn');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Замовити';
+            submitBtn.style.opacity = '';
+            submitBtn.style.cursor = '';
+        }
+        isSubmitting = false;
+    }
+
+    document.addEventListener('DOMContentLoaded', updateSummary);
+
+    // ===== Примусовий автозапуск відео =====
+    // Деякі браузери (особливо мобільні) можуть заблокувати autoplay,
+    // навіть якщо відео muted. Тому підстраховуємось кількома способами.
+    (function () {
+        const video = document.getElementById('manVideo');
+        if (!video) return;
+
+        function tryPlay() {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(function () {
+                    // Автозапуск заблоковано браузером — запустимо при першій взаємодії користувача
+                    const resume = function () {
+                        video.play().catch(function () {});
+                        document.removeEventListener('touchstart', resume);
+                        document.removeEventListener('click', resume);
+                        document.removeEventListener('scroll', resume);
+                    };
+                    document.addEventListener('touchstart', resume, { once: true });
+                    document.addEventListener('click', resume, { once: true });
+                    document.addEventListener('scroll', resume, { once: true });
+                });
+            }
+        }
+
+        // Пробуємо одразу
+        tryPlay();
+
+        // І ще раз, коли відео повністю готове до відтворення
+        video.addEventListener('loadeddata', tryPlay);
+        video.addEventListener('canplay', tryPlay);
+
+        // На випадок, якщо вкладка була неактивна і повернулась
+        document.addEventListener('visibilitychange', function () {
+            if (!document.hidden && video.paused) {
+                tryPlay();
+            }
+        });
+    })();
+</script>
+
+</body>
+</html>
