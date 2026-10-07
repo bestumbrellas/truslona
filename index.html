@@ -701,7 +701,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
             ? '<p class="empty-summary">Ви ще нічого не обрали вище 👆</p>'
             : items.map((it, idx) => `<div class="summary-item"><span>${it.label || it.p} — ${it.c}</span><div class="summary-item-right">${it.discounted ? '<span class="summary-item-badge">-20%</span>' : ''}<button type="button" class="summary-item-remove" onclick="removeSummaryItem('${it.key}', '${it.c.replace(/'/g, "\\'")}')" aria-label="Видалити">✕</button></div></div>`).join('')
               + (hasDiscount ? `<div class="order-summary-old-row"><span>Звичайна ціна за ${count} шт:</span><span>${simpleSum} грн</span></div>` : '')
-              + (hasDiscount ? `<div class="order-summary-discount-banner">🔥 Знижка -20% застосована на ${count - 1} ${count - 1 === 1 ? 'зонт' : 'зонти'} — економія ${simpleSum - total} грн</div>` : '');
+              + (hasDiscount ? `<div class="order-summary-discount-banner">🔥 Знижка -20% застосована ${count === 2 ? 'на дешевшу парасолю' : 'на всі парасолі, крім найдорожчої'} — економія ${simpleSum - total} грн</div>` : '');
 
         document.getElementById('clearAllBtn').style.display = count > 0 ? 'inline' : 'none';
         document.getElementById('orderSummaryCount').textContent = count;
