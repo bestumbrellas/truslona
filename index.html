@@ -212,7 +212,7 @@
         .ok-sub { font-size: 12.5px; color: #666; line-height: 1.4; }
         .ok-x { position: absolute; top: 8px; right: 8px; z-index: 3; width: 30px; height: 30px; border: none; border-radius: 50%; background: #f1f1f1; color: #555; font-size: 14px; cursor: pointer; }
         #orderSuccessModal .upsell { margin: 14px 14px 10px; }
-        .ok-close { display: block; margin: 4px auto 0; background: none; border: none; color: #888; font-size: 13px; text-decoration: underline; cursor: pointer; padding: 8px 12px; }
+        .ok-close { display: block; width: calc(100% - 28px); margin: 6px 14px 0; background: #fff; border: 2px solid #e03a3a; color: #e03a3a; font-size: 14px; font-weight: bold; border-radius: var(--radius-sm); cursor: pointer; padding: 12px; }
         .ok-close.primary { background: linear-gradient(135deg, #24c281 0%, var(--ok) 100%); color: #fff; text-decoration: none; font-weight: bold; text-transform: uppercase; width: calc(100% - 28px); border-radius: var(--radius-sm); padding: 13px; }
 
     </style>
@@ -913,7 +913,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         if (!box || !btn) return;
         btn.disabled = false; btn.classList.remove('done'); btn.textContent = '+ Додати до замовлення';
         const n = document.getElementById('upsellNote'); if (n) { n.textContent = 'Привеземо разом з парасолею — оплата при отриманні'; n.style.color = ''; n.style.fontWeight = ''; }
-        const c = document.getElementById('okClose'); if (c) { c.textContent = 'Ні, дякую — закрити'; c.classList.remove('primary'); }
+        const c = document.getElementById('okClose'); if (c) { c.textContent = '✕ Ні, дякую — закрити'; c.classList.remove('primary'); }
         box.style.display = 'block';
         try { fetch(ORDER_URL_UP, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'upsell_view' }) }).catch(() => {}); } catch (e) {}
     }
