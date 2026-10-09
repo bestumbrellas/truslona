@@ -937,7 +937,6 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
             const n = document.getElementById('upsellNote'); if (n) { n.textContent = 'Готово! Менеджер побачить його в вашому замовленні. Сума збільшилась на 399 грн.'; n.style.color = '#1b9a63'; n.style.fontWeight = 'bold'; }
             const c = document.getElementById('okClose'); if (c) { c.textContent = 'Закрити'; c.classList.add('primary'); }
             try { document.querySelector('#orderSuccessModal .ok-top').scrollIntoView({ block: 'nearest' }); } catch (e) {}
-            if (typeof fbq === 'function') { try { fbq('trackCustom', 'UpsellAdded', { value: 399, currency: 'UAH' }); } catch (e) {} }
         } catch (e) {
             btn.disabled = false; btn.textContent = '+ Додати до замовлення';
             alert('Не вдалося додати. Скажіть менеджеру під час дзвінка — він додасть дощовик до замовлення.');
