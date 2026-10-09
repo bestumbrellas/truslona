@@ -191,6 +191,21 @@
         .success-message { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5; }
         .success-btn { background: linear-gradient(135deg, #24c281 0%, var(--ok) 100%); color: #fff; border: none; width: 100%; padding: 13px; border-radius: var(--radius-sm); font-size: 14px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
         .success-btn:hover { filter: brightness(0.95); }
+        .upsell { display: none; margin: 4px 0 16px; text-align: left; border: 2px solid var(--ok); border-radius: var(--radius-sm); overflow: hidden; }
+        .upsell-head { background: var(--ok); color: #fff; padding: 8px 12px; font-size: 13px; font-weight: bold; }
+        .upsell-body { padding: 10px 12px 12px; }
+        .upsell-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px; display: block; background: #f3f3f3; }
+        .upsell-thumbs { display: flex; gap: 6px; margin-top: 6px; }
+        .upsell-thumbs img { width: 52px; height: 52px; object-fit: cover; border-radius: 6px; border: 2px solid transparent; cursor: pointer; opacity: .75; }
+        .upsell-thumbs img.on { border-color: var(--ok); opacity: 1; }
+        .upsell-name { font-size: 15px; font-weight: bold; color: #222; margin-top: 10px; }
+        .upsell-specs { font-size: 12.5px; color: #666; line-height: 1.5; margin: 4px 0 8px; }
+        .upsell-price { font-size: 20px; font-weight: bold; color: #222; margin-bottom: 8px; }
+        .upsell-btn { width: 100%; border: none; padding: 12px; border-radius: var(--radius-sm); font-size: 14px; font-weight: bold; cursor: pointer; background: #1b1b1b; color: #fff; }
+        .upsell-btn.done { background: #e8f7ef; color: var(--ok); cursor: default; }
+        .upsell-note { font-size: 11.5px; color: #888; margin-top: 6px; text-align: center; }
+        #orderSuccessModal .custom-alert-box { max-height: 92vh; overflow-y: auto; }
+
     </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -472,6 +487,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
                 <div class="specs-row"><span class="specs-label">Вага</span><span class="specs-value">636 г</span></div>
                 <div class="specs-row"><span class="specs-label">Матеріал ручки</span><span class="specs-value">Пластик</span></div>
                 <div class="specs-row"><span class="specs-label">Торгова марка</span><span class="specs-value">THE BEST</span></div>
+                <div class="specs-row"><span class="specs-label">Країна-виробник</span><span class="specs-value">Китай</span></div>
             </div>
         </div>
     </section>
@@ -556,6 +572,22 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         <div class="success-icon-wrap">✅</div>
         <div class="success-title">Дякуємо!</div>
         <div class="success-message">Ваше замовлення прийнято.<br>Менеджер зв'яжеться з вами найближчим часом для уточнення деталей.</div>
+        <div class="upsell" id="upsellBox">
+            <div class="upsell-head">🎁 Разом купують · доставка в одній посилці</div>
+            <div class="upsell-body">
+                <img class="upsell-img" id="upsellMain" src="poncho1.webp" alt="Дощовик-пончо">
+                <div class="upsell-thumbs" id="upsellThumbs">
+                    <img src="poncho1.webp" class="on" alt="" onclick="upsellPic(this)">
+                    <img src="poncho2.webp" alt="" onclick="upsellPic(this)">
+                    <img src="poncho3.webp" alt="" onclick="upsellPic(this)">
+                </div>
+                <div class="upsell-name">Дощовик-пончо з капюшоном</div>
+                <div class="upsell-specs">Унісекс, універсальний розмір · 154 × 145 см · плащова тканина, водонепроникний · колір зелений</div>
+                <div class="upsell-price">399 грн</div>
+                <button type="button" class="upsell-btn" id="upsellBtn" onclick="addUpsell()">+ Додати до замовлення</button>
+                <div class="upsell-note">Привеземо разом з парасолею — оплата при отриманні</div>
+            </div>
+        </div>
         <button type="button" class="success-btn" onclick="closeOrderSuccessModal()">Добре</button>
     </div>
 </div>
@@ -772,6 +804,8 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         });
     });
 
+    const ORDER_URL_UP = 'https://silent-limit-bd36.target-smm24.workers.dev';
+
     async function submitOrder(event) {
         event.preventDefault();
 
@@ -819,7 +853,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         // CRM на Render — тимчасово відключено
 
         // Відправка на Cloudflare Worker (токен Telegram зберігається на сервері)
-        const ORDER_URL = 'https://silent-limit-bd36.target-smm24.workers.dev';
+        const ORDER_URL = ORDER_URL_UP;
 
         try {
             const resp = await fetch(ORDER_URL, {
@@ -851,6 +885,37 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
             submitBtn.textContent = 'Замовлення прийнято';
         }
         document.getElementById('orderSuccessModal').style.display = 'flex';
+        try { showUpsell(phone); } catch (e) {}
+    }
+
+
+    // ===== Доппродажа в вікні «Дякуємо» =====
+    let upsellPhone = '';
+    function upsellPic(img) {
+        document.getElementById('upsellMain').src = img.src;
+        document.querySelectorAll('#upsellThumbs img').forEach(i => i.classList.toggle('on', i === img));
+    }
+    function showUpsell(phone) {
+        upsellPhone = phone;
+        const box = document.getElementById('upsellBox'), btn = document.getElementById('upsellBtn');
+        if (!box || !btn) return;
+        btn.disabled = false; btn.classList.remove('done'); btn.textContent = '+ Додати до замовлення';
+        box.style.display = 'block';
+        try { fetch(ORDER_URL_UP, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'upsell_view' }) }).catch(() => {}); } catch (e) {}
+    }
+    async function addUpsell() {
+        const btn = document.getElementById('upsellBtn');
+        if (!btn || btn.disabled || !upsellPhone) return;
+        btn.disabled = true; btn.textContent = 'Додаємо...';
+        try {
+            const r = await fetch(ORDER_URL_UP, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'upsell', phone: upsellPhone }) });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            btn.textContent = '✓ Додано до замовлення'; btn.classList.add('done');
+            if (typeof fbq === 'function') { try { fbq('trackCustom', 'UpsellAdded', { value: 399, currency: 'UAH' }); } catch (e) {} }
+        } catch (e) {
+            btn.disabled = false; btn.textContent = '+ Додати до замовлення';
+            alert('Не вдалося додати. Скажіть менеджеру під час дзвінка — він додасть дощовик до замовлення.');
+        }
     }
 
     function closeOrderSuccessModal() {
