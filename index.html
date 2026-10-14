@@ -193,11 +193,12 @@
         .success-btn:hover { filter: brightness(0.95); }
 
         /* ===== «ЗАКІНЧИВСЯ» (наявність підтягується з CRM) ===== */
-        .so-badge { display: none; background: #6b6275; color: #fff; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; padding: 3px 8px; border-radius: 20px; margin-top: 5px; }
-        .sold-out { opacity: .55; filter: grayscale(.7); pointer-events: none; cursor: default; }
+        .so-badge { display: none; background: #d93025; color: #fff; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; padding: 3px 8px; border-radius: 20px; margin-top: 5px; }
+        .sold-out { pointer-events: none; cursor: default; }
+        .sold-out img { opacity: .6; }
         .sold-out .so-badge { display: inline-block; }
         .so-note { display: none; margin: 0 0 10px; padding: 10px; background: #f1edf4; color: #5b5063; border-radius: 10px; font-size: 13px; font-weight: 700; text-align: center; }
-        .quantity-wrapper.sold-out { opacity: .5; }
+        .quantity-wrapper.sold-out { opacity: .6; }
     </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -890,7 +891,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
     // Наявність товарів з CRM: що закінчилось на складі — отримує плашку «Закінчився» і не вибирається.
     // Якщо CRM не відповіла — нічого не змінюється, сайт працює як раніше.
     (function () {
-        var CRM_URL = 'https://my-crm-feui.onrender.com';
+        var CRM_URL = 'https://my-crm-feui.onrender.com';   // наприклад https://ваша-crm.onrender.com (без / в кінці)
         if (!/^https:\/\//.test(CRM_URL)) return;
         function stockCard(el, out) {
             if (!el) return;
