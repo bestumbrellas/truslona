@@ -890,7 +890,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
     // Наявність товарів з CRM: що закінчилось на складі — отримує плашку «Закінчився» і не вибирається.
     // Якщо CRM не відповіла — нічого не змінюється, сайт працює як раніше.
     (function () {
-        var CRM_URL = 'ВСТАВТЕ_АДРЕСУ_CRM';   // наприклад https://ваша-crm.onrender.com (без / в кінці)
+        var CRM_URL = 'https://my-crm-feui.onrender.com';
         if (!/^https:\/\//.test(CRM_URL)) return;
         function stockCard(el, out) {
             if (!el) return;
