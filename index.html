@@ -199,7 +199,16 @@
         .sold-out .so-badge { display: inline-block; }
         .so-note { display: none; margin: 0 0 10px; padding: 10px; background: #f1edf4; color: #5b5063; border-radius: 10px; font-size: 13px; font-weight: 700; text-align: center; }
         .quantity-wrapper.sold-out { opacity: .6; }
-    </style>
+            .color-promo { font-size: 11.5px; color: #d93025; font-weight: 700; margin-top: 2px; }
+        .color-promo-note { color: #6b6b6b; font-weight: 400; font-size: 11px; }
+        .promo-note { text-align: center; font-size: 12px; color: #6b6b6b; margin: -4px 12px 12px; }
+        .color-promo s { color: #8a8a8a; font-weight: 400; }
+        .promo-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 16px; }
+        .promo-box { position: relative; width: min(94vw, 480px); max-height: 94vh; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+        .promo-box img { display: block; width: 100%; height: auto; }
+        .promo-close { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: #333; font-size: 20px; line-height: 1; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+        .promo-btn { display: block; width: calc(100% - 24px); margin: 12px; padding: 14px; border: none; border-radius: 12px; background: #ff5a36; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
+</style>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -284,6 +293,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
                 <label class="color-card" onclick="toggleColor('kraply', this, 'Блакитна акварель')">
                     <img src="gallery4.png" alt="Блакитна акварель">
                     <div class="color-name">Блакитна акварель</div>
+                    <div class="color-promo" id="colorPromo"><s>849</s> <b>699 грн</b> · акція дня<br><span class="color-promo-note">знижка −20% на цей колір не діє</span></div>
                 </label>
                 <label class="color-card" onclick="toggleColor('kraply', this, 'Космічний салют')">
                     <img src="gallery6.png" alt="Космічний салют">
@@ -568,9 +578,48 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
     </div>
 </div>
 
+<div class="promo-overlay" id="promoOverlay" onclick="if(event.target===this)closePromo()">
+    <div class="promo-box" role="dialog" aria-label="Акція дня">
+        <button type="button" class="promo-close" onclick="closePromo()" aria-label="Закрити">✕</button>
+        <img src="akciya-dnya.jpg" alt="Акція дня: парасолька Блакитна акварель — 699 грн замість 849 грн">
+        <button type="button" class="promo-btn" onclick="promoOrder()">Замовити зі знижкою</button>
+        <div class="promo-note">Акційна ціна не поєднується зі знижкою −20% на другу й наступні парасолі</div>
+    </div>
+</div>
+<script>
+    // Спливаюче вікно «Акція дня»: один раз за візит, без жодних подій піксела (щоб не дублювати конверсії)
+    function closePromo() { document.getElementById('promoOverlay').style.display = 'none'; }
+    function promoCard() {
+        var found = null;
+        document.querySelectorAll('#prod-kraply .color-card').forEach(function (c) { if (c.querySelector('.color-name').textContent.trim() === PROMO.color) found = c; });
+        return found;
+    }
+    function promoOrder() {
+        closePromo();
+        var card = promoCard();
+        if (card && !card.classList.contains('sold-out') && !state.kraply.has(PROMO.color)) toggleColor('kraply', card, PROMO.color);
+        scrollToOrder();
+    }
+    window.addEventListener('load', function () {
+        if (!PROMO.on) { var cp = document.getElementById('colorPromo'); if (cp) cp.style.display = 'none'; return; }
+        var seen = false;
+        try { seen = sessionStorage.getItem('promoSeen') === '1'; } catch (e) {}
+        if (seen) return;
+        setTimeout(function () {
+            var card = promoCard();
+            if (card && card.classList.contains('sold-out')) return;   // колір закінчився — акцію не показуємо
+            document.getElementById('promoOverlay').style.display = 'flex';
+            try { sessionStorage.setItem('promoSeen', '1'); } catch (e) {}
+        }, 1200);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePromo(); });
+</script>
+
 <script>
     const PRICES = { kraply: 849, man: 849, best: 799 };
     const DISCOUNT = 0.2;
+    // Акція дня: цей колір «Жіночої Краплі» продається за фіксованою ціною й не бере участі в знижці −20%. PROMO.on = false — вимкнути акцію.
+    const PROMO = { on: true, key: 'kraply', color: 'Блакитна акварель', price: 699 };
     const state = { kraply: new Set(), manQty: 0, bestQty: 0 };
     const galleryIndex = { kraply: 0, man: 0, best: 0 };
 
@@ -637,7 +686,11 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
 
     function buildOrderItems() {
         const items = [];
-        state.kraply.forEach(c => items.push({ p: 'Жіноча «Краплі»', label: 'Жіноча «Краплі»', c, key: 'kraply', price: PRICES.kraply }));
+        const promoItems = [];
+        state.kraply.forEach(c => {
+            if (PROMO.on && c === PROMO.color) promoItems.push({ p: 'Жіноча «Краплі»', label: 'Жіноча «Краплі»', c, key: 'kraply', price: PROMO.price, promo: true, discounted: false, finalPrice: PROMO.price });
+            else items.push({ p: 'Жіноча «Краплі»', label: 'Жіноча «Краплі»', c, key: 'kraply', price: PRICES.kraply });
+        });
         for (let i = 0; i < state.manQty; i++) items.push({ p: 'Чоловіча класична', label: 'Чоловіча класична', c: 'Чорний', key: 'man', price: PRICES.man });
         // p — назва товару в CRM (за нею списується склад), label — те, що бачить клієнт
         for (let i = 0; i < state.bestQty; i++) items.push({ p: 'Чоловіча класична THE BEST', label: 'Чоловіча THE BEST', c: 'Чорний', key: 'best', price: PRICES.best });
@@ -648,7 +701,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
             it.discounted = idx > 0;
             it.finalPrice = it.discounted ? Math.round(it.price * (1 - DISCOUNT)) : it.price;
         });
-        return items;
+        return items.concat(promoItems);   // акційна парасолька — окремо, без знижки −20% і не рахується як «друга»
     }
 
     function syncColorCards(productKey) {
@@ -698,7 +751,8 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         const count = items.length;
         const total = calcTotal(items);
         const simpleSum = items.reduce((sum, it) => sum + it.price, 0);
-        const hasDiscount = count > 1;
+        const dcount = items.filter(it => !it.promo).length;   // акційна не бере участі в знижці −20%
+        const hasDiscount = dcount > 1;
 
         document.getElementById('stickyCount').textContent = count;
         document.getElementById('stickyTotal').textContent = total + ' грн' + (hasDiscount ? ' (-20%)' : '');
@@ -706,9 +760,9 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         const listEl = document.getElementById('orderSummaryList');
         listEl.innerHTML = count === 0
             ? '<p class="empty-summary">Ви ще нічого не обрали вище 👆</p>'
-            : items.map((it, idx) => `<div class="summary-item"><span>${it.label || it.p} — ${it.c}</span><div class="summary-item-right">${it.discounted ? '<span class="summary-item-badge">-20%</span>' : ''}<button type="button" class="summary-item-remove" onclick="removeSummaryItem('${it.key}', '${it.c.replace(/'/g, "\\'")}')" aria-label="Видалити">✕</button></div></div>`).join('')
+            : items.map((it, idx) => `<div class="summary-item"><span>${it.label || it.p} — ${it.c}</span><div class="summary-item-right">${it.promo ? '<span class="summary-item-badge">акційна ціна, без −20%</span>' : it.discounted ? '<span class="summary-item-badge">-20%</span>' : ''}<button type="button" class="summary-item-remove" onclick="removeSummaryItem('${it.key}', '${it.c.replace(/'/g, "\\'")}')" aria-label="Видалити">✕</button></div></div>`).join('')
               + (hasDiscount ? `<div class="order-summary-old-row"><span>Звичайна ціна за ${count} шт:</span><span>${simpleSum} грн</span></div>` : '')
-              + (hasDiscount ? `<div class="order-summary-discount-banner">🔥 Знижка -20% застосована ${count === 2 ? 'на дешевшу парасолю' : 'на всі парасолі, крім найдорожчої'} — економія ${simpleSum - total} грн</div>` : '');
+              + (hasDiscount ? `<div class="order-summary-discount-banner">🔥 Знижка -20% застосована ${dcount === 2 ? 'на дешевшу парасолю' : 'на всі парасолі, крім найдорожчої'} — економія ${simpleSum - total} грн</div>` : '');
 
         document.getElementById('clearAllBtn').style.display = count > 0 ? 'inline' : 'none';
         document.getElementById('orderSummaryCount').textContent = count;
