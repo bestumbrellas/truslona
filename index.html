@@ -199,15 +199,6 @@
         .sold-out .so-badge { display: inline-block; }
         .so-note { display: none; margin: 0 0 10px; padding: 10px; background: #f1edf4; color: #5b5063; border-radius: 10px; font-size: 13px; font-weight: 700; text-align: center; }
         .quantity-wrapper.sold-out { opacity: .6; }
-            .color-promo { font-size: 11.5px; color: #d93025; font-weight: 700; margin-top: 2px; }
-        .color-promo-note { color: #6b6b6b; font-weight: 400; font-size: 11px; }
-        .promo-note { text-align: center; font-size: 12px; color: #6b6b6b; margin: -4px 12px 12px; }
-        .color-promo s { color: #8a8a8a; font-weight: 400; }
-        .promo-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 16px; }
-        .promo-box { position: relative; width: min(94vw, 480px); max-height: 94vh; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,.35); }
-        .promo-box img { display: block; width: 100%; height: auto; }
-        .promo-close { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: #333; font-size: 20px; line-height: 1; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
-        .promo-btn { display: block; width: calc(100% - 24px); margin: 12px; padding: 14px; border: none; border-radius: 12px; background: #ff5a36; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -264,10 +255,6 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
             <img src="zont_m.png" alt="Чоловіча класична">
             <span>Чоловіча класична<br>«Три Слона»</span>
         </a>
-        <a href="#prod-best" class="nav-pill" id="nav-best">
-            <img src="z_m.png" alt="Чоловіча класична «Три Слона» з дерев'яною ручкою">
-            <span>Чоловіча «Три Слона»<br>дерев'яна ручка</span>
-        </a>
     </div>
 
     <!-- ============================================================ -->
@@ -289,11 +276,6 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
                 <label class="color-card" onclick="toggleColor('kraply', this, 'Синій космос')">
                     <img src="gallery5.png" alt="Синій космос">
                     <div class="color-name">Синій космос</div>
-                </label>
-                <label class="color-card" onclick="toggleColor('kraply', this, 'Блакитна акварель')">
-                    <img src="gallery4.png" alt="Блакитна акварель">
-                    <div class="color-name">Блакитна акварель</div>
-                    <div class="color-promo" id="colorPromo"><s>849</s> <b>699 грн</b> · акція дня<br><span class="color-promo-note">знижка −20% на цей колір не діє</span></div>
                 </label>
                 <label class="color-card" onclick="toggleColor('kraply', this, 'Космічний салют')">
                     <img src="gallery6.png" alt="Космічний салют">
@@ -422,75 +404,6 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
 
 
     <!-- ============================================================ -->
-    <!-- PRODUCT 3: ЧОЛОВІЧА КЛАСИЧНА З ДЕРЕВ'ЯНОЮ РУЧКОЮ («Три Слона», 16 карбонових спиць, 849 грн); у коді й CRM-блоці ключ залишився "best" -->
-    <!-- ============================================================ -->
-    <section class="product-block" id="prod-best">
-        <div class="product-header">
-            <span class="product-kicker">Чоловіча модель</span>
-            <h2 class="product-title">Класична парасолька «Три Слона», 16 міцних спиць, дерев'яна ручка</h2>
-            <div class="product-price-line">
-                <span class="old-price-inline">1049 грн</span>
-                <span class="new-price-inline">849 грн</span>
-            </div>
-        </div>
-
-        <div class="order-section">
-            <div class="colors-label">Колір: <span>Чорний</span></div>
-            <div class="man-color-wrap">
-                <div class="man-color-card" id="bestColorCard" onclick="toggleBestColor()">
-                    <img src="z_m.png" alt="Чорний">
-                    <div class="color-name">Чорний</div>
-                </div>
-            </div>
-            <div class="quantity-wrapper">
-                <span class="quantity-label">Кількість:</span>
-                <div class="quantity-select">
-                    <button type="button" class="quantity-btn" onclick="changeBestQty(-1)">-</button>
-                    <input type="text" id="bestQty" class="quantity-input" value="0" readonly>
-                    <button type="button" class="quantity-btn" onclick="changeBestQty(1)">+</button>
-                </div>
-            </div>
-            <div class="selected-line" id="selected-best">Товар ще не обрано</div>
-        </div>
-
-        <div class="media-section">
-            <div class="media-section-title">Живі фото та огляд</div>
-            <div class="gallery-container" id="gallery-best">
-                <button class="gallery-arrow gallery-prev" onclick="changeSlide('best', -1)">&#10094;</button>
-                <div class="gallery-slide active"><img src="zont_m2.jpg" alt="Фото 1"></div>
-                <div class="gallery-slide"><img src="zont_m4.png" alt="Фото 2"></div>
-                <div class="gallery-slide"><img src="zont_m5.png" alt="Фото 3" onerror="dropSlide(this)"></div>
-                <div class="gallery-slide"><img src="zont_m6.png" alt="Фото 4" onerror="dropSlide(this)"></div>
-                <div class="gallery-slide"><img src="m_3.jpg" alt="Фото 5" onerror="dropSlide(this)"></div>
-                <div class="gallery-slide"><img src="zont_m1.jpg" alt="Фото 6" onerror="dropSlide(this)"></div>
-                <button class="gallery-arrow gallery-next" onclick="changeSlide('best', 1)">&#10095;</button>
-            </div>
-            <div class="video-container">
-                <video controls preload="auto" autoplay muted loop playsinline>
-                    <source src="men_1.mp4" type="video/mp4">
-                    Ваш браузер не підтримує відео.
-                </video>
-            </div>
-        </div>
-
-        <div class="specs-section">
-            <div class="specs-title">Характеристики</div>
-            <div class="specs-table">
-                <div class="specs-row"><span class="specs-label">Тип механізму</span><span class="specs-value">Автомат (відкривання однією кнопкою)</span></div>
-                <div class="specs-row"><span class="specs-label">Кількість спиць</span><span class="specs-value">16 карбонових</span></div>
-                <div class="specs-row"><span class="specs-label">Матеріал купола</span><span class="specs-value">Тканина понжі (епонж)</span></div>
-                <div class="specs-row"><span class="specs-label">Захист від УФ</span><span class="specs-value">15 UPF</span></div>
-                <div class="specs-row"><span class="specs-label">Діаметр купола</span><span class="specs-value">106 см</span></div>
-                <div class="specs-row"><span class="specs-label">Довжина у складеному вигляді</span><span class="specs-value">36 см</span></div>
-                <div class="specs-row"><span class="specs-label">Вага</span><span class="specs-value">678 г</span></div>
-                <div class="specs-row"><span class="specs-label">Матеріал ручки</span><span class="specs-value">Дерево, форма гака</span></div>
-                <div class="specs-row"><span class="specs-label">Колір</span><span class="specs-value">Чорний</span></div>
-                <div class="specs-row"><span class="specs-label">Комплектація</span><span class="specs-value">Парасолька + фірмовий чохол</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================ -->
     <!-- ЄДИНА ФОРМА ЗАМОВЛЕННЯ -->
     <!-- ============================================================ -->
     <section class="order-form-section" id="orderForm">
@@ -574,50 +487,11 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
     </div>
 </div>
 
-<div class="promo-overlay" id="promoOverlay" onclick="if(event.target===this)closePromo()">
-    <div class="promo-box" role="dialog" aria-label="Акція дня">
-        <button type="button" class="promo-close" onclick="closePromo()" aria-label="Закрити">✕</button>
-        <img src="akciya-dnya.jpg" alt="Акція дня: парасолька Блакитна акварель — 699 грн замість 849 грн">
-        <button type="button" class="promo-btn" onclick="promoOrder()">Замовити зі знижкою</button>
-        <div class="promo-note">Акційна ціна не поєднується зі знижкою −20% на другу й наступні парасолі</div>
-    </div>
-</div>
 <script>
-    // Спливаюче вікно «Акція дня»: один раз за візит, без жодних подій піксела (щоб не дублювати конверсії)
-    function closePromo() { document.getElementById('promoOverlay').style.display = 'none'; }
-    function promoCard() {
-        var found = null;
-        document.querySelectorAll('#prod-kraply .color-card').forEach(function (c) { if (c.querySelector('.color-name').textContent.trim() === PROMO.color) found = c; });
-        return found;
-    }
-    function promoOrder() {
-        closePromo();
-        var card = promoCard();
-        if (card && !card.classList.contains('sold-out') && !state.kraply.has(PROMO.color)) toggleColor('kraply', card, PROMO.color);
-        scrollToOrder();
-    }
-    window.addEventListener('load', function () {
-        if (!PROMO.on) { var cp = document.getElementById('colorPromo'); if (cp) cp.style.display = 'none'; return; }
-        var seen = false;
-        try { seen = sessionStorage.getItem('promoSeen') === '1'; } catch (e) {}
-        if (seen) return;
-        setTimeout(function () {
-            var card = promoCard();
-            if (card && card.classList.contains('sold-out')) return;   // колір закінчився — акцію не показуємо
-            document.getElementById('promoOverlay').style.display = 'flex';
-            try { sessionStorage.setItem('promoSeen', '1'); } catch (e) {}
-        }, 1200);
-    });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePromo(); });
-</script>
-
-<script>
-    const PRICES = { kraply: 849, man: 849, best: 849 };
+    const PRICES = { kraply: 849, man: 849 };
     const DISCOUNT = 0.2;
-    // Акція дня: цей колір «Жіночої Краплі» продається за фіксованою ціною й не бере участі в знижці −20%. PROMO.on = false — вимкнути акцію.
-    const PROMO = { on: false, key: 'kraply', color: 'Блакитна акварель', price: 699 };
-    const state = { kraply: new Set(), manQty: 0, bestQty: 0 };
-    const galleryIndex = { kraply: 0, man: 0, best: 0 };
+    const state = { kraply: new Set(), manQty: 0 };
+    const galleryIndex = { kraply: 0, man: 0 };
 
     function toggleColor(productKey, cardEl, colorName) {
         if (state[productKey].has(colorName)) {
@@ -647,31 +521,10 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         updateSummary();
     }
 
-    // Чоловіча класична з дерев'яною ручкою (849 грн): картка кольору та кількість — як у чоловічої класичної
-    function toggleBestColor() { if (state.bestQty === 0) changeBestQty(1); }
-    function changeBestQty(delta) {
-        state.bestQty = Math.max(0, state.bestQty + delta);
-        document.getElementById('bestQty').value = state.bestQty;
-        const card = document.getElementById('bestColorCard');
-        if (state.bestQty > 0) { card.classList.add('selected'); } else { card.classList.remove('selected'); }
-        updateSelectedLine('best');
-        updateSummary();
-    }
-    // Виключатель: SHOW_BEST = false повністю ховає товар THE BEST (блок, кнопку зверху і вибір кількості)
-    const SHOW_BEST = true;
-    function applyBestVisibility() { if (!SHOW_BEST) hideBestProduct(); }
-    function hideBestProduct() {
-        ['prod-best', 'nav-best'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
-        if (state.bestQty) { state.bestQty = 0; updateSummary(); }
-    }
     function dropSlide(img) { const s = img.closest('.gallery-slide'); if (s && !s.classList.contains('active')) s.remove(); }
 
     function updateSelectedLine(productKey) {
         const el = document.getElementById('selected-' + productKey);
-        if (productKey === 'best') {
-            el.textContent = state.bestQty > 0 ? `Обрано: Чорний × ${state.bestQty}` : 'Товар ще не обрано';
-            return;
-        }
         if (productKey === 'man') {
             el.textContent = state.manQty > 0 ? `Обрано: Чорний × ${state.manQty}` : 'Товар ще не обрано';
             return;
@@ -682,14 +535,8 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
 
     function buildOrderItems() {
         const items = [];
-        const promoItems = [];
-        state.kraply.forEach(c => {
-            if (PROMO.on && c === PROMO.color) promoItems.push({ p: 'Жіноча «Краплі»', label: 'Жіноча «Краплі»', c, key: 'kraply', price: PROMO.price, promo: true, discounted: false, finalPrice: PROMO.price });
-            else items.push({ p: 'Жіноча «Краплі»', label: 'Жіноча «Краплі»', c, key: 'kraply', price: PRICES.kraply });
-        });
+        state.kraply.forEach(c => items.push({ p: 'Жіноча «Краплі»', label: 'Жіноча «Краплі»', c, key: 'kraply', price: PRICES.kraply }));
         for (let i = 0; i < state.manQty; i++) items.push({ p: 'Чоловіча класична', label: 'Чоловіча класична', c: 'Чорний', key: 'man', price: PRICES.man });
-        // p — назва товару в CRM (за нею списується склад), label — те, що бачить клієнт
-        for (let i = 0; i < state.bestQty; i++) items.push({ p: 'Чоловіча класична (ручка дерево)', label: 'Чоловіча «Три Слона» (дерев\'яна ручка)', c: 'Чорний', key: 'best', price: PRICES.best });
         // Знижка −20% рахується від ціни МЕНШОЇ (дешевшої) парасолі: найдорожча в чеку — без знижки, на решту — −20% від їхньої власної ціни.
         // Ціни округлюємо до гривні для кожної позиції, щоб сума чека завжди збігалася з сумою позицій.
         items.sort((a, b) => b.price - a.price);
@@ -697,7 +544,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
             it.discounted = idx > 0;
             it.finalPrice = it.discounted ? Math.round(it.price * (1 - DISCOUNT)) : it.price;
         });
-        return items.concat(promoItems);   // акційна парасолька — окремо, без знижки −20% і не рахується як «друга»
+        return items;
     }
 
     function syncColorCards(productKey) {
@@ -713,10 +560,6 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
             changeManQty(-1);
             return;
         }
-        if (productKey === 'best') {
-            changeBestQty(-1);
-            return;
-        }
         state[productKey].delete(colorName);
         syncColorCards(productKey);
         updateSelectedLine(productKey);
@@ -726,15 +569,11 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
     function resetAllSelections() {
         state.kraply.clear();
         state.manQty = 0;
-        state.bestQty = 0;
         syncColorCards('kraply');
         document.getElementById('manColorCard').classList.remove('selected');
         document.getElementById('manQty').value = 0;
-        document.getElementById('bestColorCard').classList.remove('selected');
-        document.getElementById('bestQty').value = 0;
         updateSelectedLine('kraply');
         updateSelectedLine('man');
-        updateSelectedLine('best');
         updateSummary();
     }
 
@@ -747,8 +586,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         const count = items.length;
         const total = calcTotal(items);
         const simpleSum = items.reduce((sum, it) => sum + it.price, 0);
-        const dcount = items.filter(it => !it.promo).length;   // акційна не бере участі в знижці −20%
-        const hasDiscount = dcount > 1;
+        const hasDiscount = count > 1;
 
         document.getElementById('stickyCount').textContent = count;
         document.getElementById('stickyTotal').textContent = total + ' грн' + (hasDiscount ? ' (-20%)' : '');
@@ -756,9 +594,9 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
         const listEl = document.getElementById('orderSummaryList');
         listEl.innerHTML = count === 0
             ? '<p class="empty-summary">Ви ще нічого не обрали вище 👆</p>'
-            : items.map((it, idx) => `<div class="summary-item"><span>${it.label || it.p} — ${it.c}</span><div class="summary-item-right">${it.promo ? '<span class="summary-item-badge">акційна ціна, без −20%</span>' : it.discounted ? '<span class="summary-item-badge">-20%</span>' : ''}<button type="button" class="summary-item-remove" onclick="removeSummaryItem('${it.key}', '${it.c.replace(/'/g, "\\'")}')" aria-label="Видалити">✕</button></div></div>`).join('')
+            : items.map((it, idx) => `<div class="summary-item"><span>${it.label || it.p} — ${it.c}</span><div class="summary-item-right">${it.discounted ? '<span class="summary-item-badge">-20%</span>' : ''}<button type="button" class="summary-item-remove" onclick="removeSummaryItem('${it.key}', '${it.c.replace(/'/g, "\\'")}')" aria-label="Видалити">✕</button></div></div>`).join('')
               + (hasDiscount ? `<div class="order-summary-old-row"><span>Звичайна ціна за ${count} шт:</span><span>${simpleSum} грн</span></div>` : '')
-              + (hasDiscount ? `<div class="order-summary-discount-banner">🔥 Знижка -20% застосована ${dcount === 2 ? 'на дешевшу парасолю' : 'на всі парасолі, крім найдорожчої'} — економія ${simpleSum - total} грн</div>` : '');
+              + (hasDiscount ? `<div class="order-summary-discount-banner">🔥 Знижка -20% застосована ${count === 2 ? 'на дешевшу парасолю' : 'на всі парасолі, крім найдорожчої'} — економія ${simpleSum - total} грн</div>` : '');
 
         document.getElementById('clearAllBtn').style.display = count > 0 ? 'inline' : 'none';
         document.getElementById('orderSummaryCount').textContent = count;
@@ -917,7 +755,6 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
     }
 
     document.addEventListener('DOMContentLoaded', updateSummary);
-    document.addEventListener('DOMContentLoaded', applyBestVisibility);
 
     // ===== "Зараз переглядають сайт" — імітація живих переглядів =====
     (function () {
@@ -962,8 +799,7 @@ src="https://www.facebook.com/tr?id=1015453331530328&ev=PageView&noscript=1"
                     }
                 });
             }
-            [['Чоловіча класична', 'man', 'manColorCard', 'manQty', changeManQty],
-             ['Чоловіча класична (ручка дерево)', 'best', 'bestColorCard', 'bestQty', changeBestQty]].forEach(function (c) {
+            [['Чоловіча класична', 'man', 'manColorCard', 'manQty', changeManQty]].forEach(function (c) {
                 var pr = P[c[0]];
                 if (!pr || pr['Чорний'] !== false) return;
                 var qtyKey = c[1] + 'Qty';
